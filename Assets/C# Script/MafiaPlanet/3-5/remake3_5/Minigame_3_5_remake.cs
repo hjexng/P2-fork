@@ -6,10 +6,13 @@ using UnityEngine;
 public class Minigame_3_5_remake : MiniGameBase
 {
     public ScopeMover scopeMover;
+    public CameraFollow3_5 cameraFollow;
+    bool moveStarted = false;
 
     private void Start()
     {
         StartGame();
+        moveStarted = true;
     }
     public override void StartGame()
     {
@@ -29,9 +32,15 @@ public class Minigame_3_5_remake : MiniGameBase
             //Debug.Log("현재 시간: " + Time.time+"timechecker: "+timechecker);
             timer = 0f;
         }
-        if(timechecker>=3.5f)
+        if(timechecker>=3.5f&&moveStarted)
         {
+
             scopeMover.StartMove();
+            moveStarted = false; 
+        }
+        if(timechecker>=3f)
+        {
+            cameraFollow.ResetCamera();
         }
     }
     

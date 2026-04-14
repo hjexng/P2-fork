@@ -40,6 +40,7 @@ public class BushSpawner3_8 : MonoBehaviour
 
     void SpawnBush()
     {
+        Debug.Log("Spawning bush and triggering enemy watch routine.");
         enemyWatch.PlayWatchRoutine();
         GameObject obj = Instantiate(bushPrefab, spawnPosition, Quaternion.identity);
 

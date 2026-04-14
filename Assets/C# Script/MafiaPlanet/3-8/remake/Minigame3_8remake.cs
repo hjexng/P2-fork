@@ -10,22 +10,23 @@ public class Minigame3_8remake : MiniGameBase
     public override float goodWindowOverride => 0.3f;
     public override float hitWindowOverride => 0.5f;
 
-    [Header("Input Settings")]
-    public KeyCode inputKey = KeyCode.Mouse0;   // 좌클릭 입력
 
     private bool finished = false;
 
     private void Start()
     {
-        StartGame();
+        IsInputLocked = false;
+        Debug.Log("[3-8] Minigame3_8remake 시작");
+        base.StartGame();
     }
+    
 
     private void Update()
     {
         if (finished) return;
 
         // 좌클릭 입력
-        if (Input.GetKeyDown(inputKey))
+        if (Input.GetMouseButtonDown(0))
         {
             SubmitInput();
         }
@@ -55,7 +56,8 @@ public class Minigame3_8remake : MiniGameBase
     public void SubmitInput()
     {
         // 리듬매니저 입력 잠금이면 무시
-        if (IsInputLocked) return;
+        //if (IsInputLocked) return;
+        Debug.Log("[3-8] SubmitInput 호출 - 입력 전달 준비");
 
         // 입력을 리듬매니저로 전달
         OnPlayerInput("Input");
@@ -64,18 +66,8 @@ public class Minigame3_8remake : MiniGameBase
     // ===== 리듬매니저 판정 결과 로그 =====
 
 
-    public void OnJudgePerfect()
+    public override void OnJudgement(JudgementResult judgement)
     {
-        Debug.Log("[3-8] PERFECT");
-    }
-
-    public void OnJudgeGood()
-    {
-        Debug.Log("[3-8] GOOD");
-    }
-
-    public void OnJudgeMiss()
-    {
-        Debug.Log("[3-8] MISS");
+        Debug.Log($"{judgement}");
     }
 }

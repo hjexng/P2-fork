@@ -33,7 +33,7 @@ public class PlayerControl3_8 : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            game.SubmitInput();
+            Debug.Log("Mouse Clicked!");
 
             PlayWatchRoutine();
         }
