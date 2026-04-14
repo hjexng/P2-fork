@@ -25,7 +25,6 @@ public class Minigame_2_9 : MiniGameBase
     {
         base.StartGame();
         ended = false;
-        cloudSpawner.Init();
         // 추가 초기화
         // 예: instructionText.text = MinigameExplain;
     }

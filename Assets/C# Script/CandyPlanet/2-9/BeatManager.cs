@@ -40,8 +40,9 @@ public class BeatManager : MonoBehaviour
 
             if (current == 1)
             {
-                OnBeat?.Invoke(); // ✔ 이동 신호
-                spawner.Spawn();
+                Debug.Log("Beat 발생");
+                OnBeat?.Invoke(); // 이동 신호
+                spawner.TrySpawn();
             }
 
             index = (index + 1) % beatPattern.Count;
