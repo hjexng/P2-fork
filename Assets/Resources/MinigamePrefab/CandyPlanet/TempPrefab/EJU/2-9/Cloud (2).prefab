@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6358040462270854384}
   - component: {fileID: 2209850033912690492}
-  - component: {fileID: 6202867849960930340}
+  - component: {fileID: -8920799764611110620}
+  - component: {fileID: 8534480015925942485}
   m_Layer: 0
   m_Name: Cloud (2)
   m_TagString: Untagged
@@ -85,7 +86,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6202867849960930340
+--- !u!58 &-8920799764611110620
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8262754569691398252}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.10982728, y: -0.2654159}
+  serializedVersion: 2
+  m_Radius: 2.2738388
+--- !u!114 &8534480015925942485
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +130,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8262754569691398252}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39fb8e4b9346aaf43bab2e61a7d9ebd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c1ff88959fd55040a52d567de10c17a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepDistance: 1.5
+  moveStep: 1.5
+  destroyX: 12
+  isGrabbed: 0
+  debrisPrefab: {fileID: 5325850515164277207, guid: 41a0f6d0076e45943976ff8c8198fae5, type: 3}
