@@ -12,6 +12,17 @@ public class Bawmquhen2_6 : MonoBehaviour
     private float targetY;
     private float originalY;
 
+
+    public float moveSpeed = 500f;
+    public float returnSpeed = 300f;
+    public float maxX = 300f;
+
+    private float targetX = 0f;
+    private bool returning = false;
+    private float returnDelay = 0.3f;
+    private float returnTimer = 0f;
+
+
     private RectTransform rectTransform;
 
     void Start()
@@ -32,14 +43,41 @@ public class Bawmquhen2_6 : MonoBehaviour
     {
         if (rectTransform == null) return;
 
-        // 회전
-        rectTransform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
-
-        // 클릭 시 점프 시작
+        // 점프 입력
         if (Input.GetMouseButtonDown(0) && !isJumping && !isFalling)
         {
             Jump();
         }
+
+        // 좌우 입력
+        float input = Input.GetAxis("Horizontal");
+
+        if (Mathf.Abs(input) > 0.1f)
+        {
+            returning = false;
+            returnTimer = 0f;
+
+            targetX += input * moveSpeed * Time.deltaTime;
+            targetX = Mathf.Clamp(targetX, -maxX, maxX);
+        }
+        else
+        {
+            returnTimer += Time.deltaTime;
+
+            if (returnTimer >= returnDelay)
+            {
+                returning = true;
+            }
+        }
+
+        float currentX = rectTransform.anchoredPosition.x;
+
+        if (returning)
+            currentX = Mathf.MoveTowards(currentX, 0f, returnSpeed * Time.deltaTime);
+        else
+            currentX = Mathf.MoveTowards(currentX, targetX, moveSpeed * Time.deltaTime);
+
+        rectTransform.anchoredPosition = new Vector2(currentX, rectTransform.anchoredPosition.y);
 
         HandleJump();
     }
