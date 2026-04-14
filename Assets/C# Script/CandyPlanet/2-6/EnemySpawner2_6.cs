@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner2_6 : MonoBehaviour
 {
@@ -8,33 +10,34 @@ public class EnemySpawner2_6 : MonoBehaviour
     public GameObject prefab; // 생성할 프리팹
 
     [Header("Spawn Range (Local X)")]
-    public float leftOffset = -5f;   // 왼쪽 끝
-    public float rightOffset = 5f;   // 오른쪽 끝
+    public float leftX = -300f;
+    public float rightX = 300f;
 
-    [Header("Spawn Interval")]
-    public float minInterval = 1f;   // 최소 생성 주기
-    public float maxInterval = 2f;   // 최대 생성 주기
+    public float spawnY = 0f;
 
-    void Start()
+    public MiniGame2_6 minigame;
+
+    public void SpawnObstacle()
     {
-        // 실행 시작 시 스폰 루프 시작
-        StartCoroutine(SpawnLoop());
-    }
+        // 3등분 중 하나 선택
+        int lane = Random.Range(0, 3);
 
-    IEnumerator SpawnLoop()
-    {
-        while (true)
-        {
-            // 랜덤 대기 (1초~2초)
-            float waitTime = Random.Range(minInterval, maxInterval);
-            yield return new WaitForSeconds(waitTime);
+        float width = (rightX - leftX) / 3f;
+        float startX = leftX + lane * width;
 
-            // 랜덤 위치 (Spawner 기준 좌우 범위)
-            float randomX = Random.Range(leftOffset, rightOffset);
-            Vector3 spawnPos = transform.position + new Vector3(randomX, 0f, -2f);
+        // 2/3 크기 장애물
+        float obstacleWidth = width * (2f / 3f);
 
-            // 프리팹 생성
-            Instantiate(prefab, spawnPos, Quaternion.identity);
-        }
+        float spawnX = startX + (width / 2f);
+
+        Vector3 spawnPos = new Vector3(spawnX, spawnY, 0f);
+
+        GameObject obj = Instantiate(prefab, spawnPos, Quaternion.identity, transform);
+
+        Enemy2_6 enemy = obj.GetComponent<Enemy2_6>();
+        enemy.Init(minigame);
+
+        // 크기 조절
+        obj.transform.localScale = new Vector3(obstacleWidth, obj.transform.localScale.y, 1f);
     }
 }

@@ -8,6 +8,8 @@ public class Enemy2_6 : MonoBehaviour
     private Transform target;
     public float speed = 5f;   // 이동 속도
 
+    private bool isHit = false;
+
     void Start()
     {
         GameObject found = GameObject.Find(targetName);
@@ -19,16 +21,6 @@ public class Enemy2_6 : MonoBehaviour
         {
             Debug.LogWarning($"씬 안에서 '{targetName}' 오브젝트를 찾지 못했습니다.");
         }
-        GameObject game = GameObject.Find(_minigameName);
-        if (found != null)
-        {
-            _minigame2_6 = game.GetComponent<MiniGame2_6>();
-        }
-        else
-        {
-            Debug.LogWarning($"씬 안에서 '{_minigameName}' 오브젝트를 찾지 못했습니다.");
-        }
-
     }
 
     void Update()
@@ -43,12 +35,21 @@ public class Enemy2_6 : MonoBehaviour
         }
     }
 
+    public void Init(MiniGame2_6 minigame)
+    {
+        _minigame2_6 = minigame;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            Destroy(gameObject); // 자기 자신 삭제
-            _minigame2_6.Fail();
-        }
+        if (isHit) return;
+        if (!collision.CompareTag("Player")) return;
+
+        isHit = true;
+
+        if (_minigame2_6 != null)
+            _minigame2_6.OnPlayerHit();
+
+        //Destroy(gameObject);
     }
 }
